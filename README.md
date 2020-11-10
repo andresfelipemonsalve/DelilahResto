@@ -1,6 +1,4 @@
 # Delilah Restaurante
-The goal of this project is to build an API REST to manage a food store's orders using nodejs and MySQL. Designing its architecture, DB entity relationship diagram and API endpoints with documentation. 
-
 El objetivo el proyecto consiste en construir un API Rest para una tienda de comidad que use nodejs y mysql. Bajo un modelo de base de datos relacional y la documentación de la API con los endpoints.
 
 #### Caracteristicas
@@ -22,82 +20,78 @@ node --version
 
 ```bash
 git clone https://github.com/andresfelipemonsalve/DelilahResto
-cd delilah-resto
+cd DelilahResto
 npm install
 ```
-3. Rename the file ".env_sample" to ".env" and replace YOUR_PASSPHRASE_HERE with your own passphrase.
+3. Renombre el archivo ".env_sample" por ".env" y reemplace el valor CAMBIE_SU_CLAVE con su propia contraseña.
 ```bash
 mv .env_sample .env
-sed -i 's/YOUR_PASSPHRASE_HERE/example_of_your_passphrase/g' .env
+sed -i 's/CAMBIE_SU_CLAVE/ejemplo_clave/g' .env
 ```
-Change `example_of_your_passphrase` for anything you want, this will be used for encrypting your tokens!
+reemplace `ejemplo_clave` por el valor que usted desee, esto será usado para encriptar los tokens!
+    
+### 2. Configure la base de datos
+1. Instale [XAMPP](https://www.apachefriends.org/index.html) el cual incluye servidor apache y mysql.
+1. Abra XAMPP e inicialice `Apache` y `MySQL`. asegurese que Mysql corre en el puerto `3306`.
+1.  `MySQL` asegurece que tenga ingreso de administrador con perfil `root` contraseña por defecto o creela
+1. Tiene dos opciones para configurar la base de datos:
+    * *OPCION A)* Cree una base de datos de ejemplo `delilah-resto` y asegure la información [here](./src/services/database/config/index.js) esta correcta. Luego ejecute `npm run populateData`.
+    * *OPCION B)* Importe [this file](./src/services/database/delilah-resto-init-config.sql) este archivo contiene todos los scripts para generar las tablas, y la relaciones entre ellas con información básica.
 
-### 2. Setting up DB
-1. Install [XAMPP](https://www.apachefriends.org/index.html) which is an Apache server used to serve a MySQL.
-1. Run XAMPP and start `Apache` and `MySQL`. Be sure that the port `3306` is used for the service MySQL.
-1. Admin `MySQL` to check whether you have a `root` profile with no password already created. Otherwise create it.
-1. Then you would have two options to set the DB:
-    * *OPTION A)* Create only your DB as for example `delilah-resto` and then ensure all info in [here](./src/services/database/config/index.js) is correct. Then run `npm run populateData`.
-    * *OPTION B)* Import [this file](./src/services/database/delilah-resto-init-config.sql) containing all the SQL queries to generate the tables, its relationship and populate them with basic info.
+Hasta aca se ha configurado la base de datos y se ha instalado nodejs.
 
-So far we already have installed nodejs and set up our DB !
+**Note**: Se ha creado el usuario  `admin` y la contraseña es `admin`. un usuario valido podria ser `adln` y la contraseña `anotherpassword`.
 
-**Note**: There is only one admin created so far which username is `admin` and its password is `admin`. There is also a regular user created whose username is `adln` and its password is `anotherpassword`.
-
-### 3. Initiating server
-Open a terminal a run the following command. If you close terminal, server ends.
+### 3. Inicializando el servidor
+Abra la terminal y ejecute el comando.
 ```bash
 npm run start
 ```
-### 4. Ready to use 🏁 🎊🎉
-All you need to try this was explained ✔. Have fun!
+### 4. Listo!
+Esto es todo lo que necesita.
 
-## Endpoints Description
-The endpoints are detailed in [this YALM file](./design/API/delilah-resto-API-spec.yml) and they were designed following the [OPEN API specifications](https://swagger.io/specification/#:~:text=Introduction,or%20through%20network%20traffic%20inspection.) and the suggestions of [this handbook](https://pages.apigee.com/rs/apigee/images/api-design-ebook-2012-03.pdf).
+## Descripcion de los Endpoints
+Los endpoints se detallan en este archivo [this YALM file](./design/API/delilah-resto-API-spec.yml) y están diseñados con la siguiente especificación [OPEN API specifications](https://swagger.io/specification/#:~:text=Introduction,or%20through%20network%20traffic%20inspection.) se sugiere consultar esta guia para más información [this handbook](https://pages.apigee.com/rs/apigee/images/api-design-ebook-2012-03.pdf).
 
-A detailed [documentation file](./design/API/delilah-rsto-API-Documentation.html) is provided but instead, I encourage you to copy the content of the [YALM file](./design/API/delilah-resto-API-spec.yml) and paste it into the [Swagger Editor](https://editor.swagger.io/#) for a clearer view.
+Se detalla la documentación acá [documentation file](./design/API/delilah-rsto-API-Documentation.html) tambien se detalla en este archivo [YALM file](./design/API/delilah-resto-API-spec.yml) el cual fue editado en  [Swagger Editor](https://editor.swagger.io/#).
 
 
-Here is a brief summary of all available endpoints.
+A continuación un breve resumen de los endpoints.
 
 *Base URL*: localhost:3000/api/v1
 | Method |       Enpoint      |                  Description                  |
 |--------|--------------------|-----------------------------------------------|
-|   GET  | /login             | Returns bearer token                          |
-|   GET  | /users             | Get all user info                             |
-|  POST  | /users             | Create new user                               |
-|   GET  | /users/{id}        | Get user info                                 |
-|   PUT  | /users/{id}        | Edit user info                                |
-| DELETE | /users/{id}        | Delete user                                   |
-|   GET  | /users/{id}/dishes | Get user's favourites dishes                  |
-|   GET  | /dishes            | Get all dishes info                           |
-|  POST  | /dishes            | Create new dish                               |
-|   GET  | /dishes/{id}       | Get dish info                                 |
-|   PUT  | /dishes/{id}       | Edit dish info                                |
-| DELETE | /dishes/{id}       | Delete dish                                   |
-|   GET  | /orders            | Returns all orders (Time filtering available) |
-|  POST  | /orders            | Create new order                              |
-|   GET  | /orders/{id}       | Get order info                                |
-|   PUT  | /orders/{id}       | Update order status                           |
-|DELETE  | /orders/{id}       | Delete order                                  |
+|   GET  | /login             | Retorna el token bearer                       |
+|   GET  | /users             | Trae la información de usuario                |
+|  POST  | /users             | Crea un nuevo usuario                         |
+|   GET  | /users/{id}        | Consigue usuario por id                       |
+|   PUT  | /users/{id}        | Edita la información del usuario              |
+| DELETE | /users/{id}        | Elimina un usuario por id                     |
+|   GET  | /users/{id}/dishes | Trae los platos favoritos por usuario         |
+|   GET  | /dishes            | Trae toda la informacion de los platos        |
+|  POST  | /dishes            | Crea nuevos platos                            |
+|   GET  | /dishes/{id}       | Trae información de platos por id             |
+|   PUT  | /dishes/{id}       | Edita información plato                       |
+| DELETE | /dishes/{id}       | Elimina un plato                              |
+|   GET  | /orders            | Trae todas las ordenes de platos              |
+|  POST  | /orders            | Crea una nueva orden                          |
+|   GET  | /orders/{id}       | Trae la información de la orden               |
+|   PUT  | /orders/{id}       | Actualiza el estado de la orden               |
+|DELETE  | /orders/{id}       | Elimina la orden                              |
 
-### Endpoints Testing
-A complete list of functional endpoints with examples are included in [this file](./test/delilah-resto-endpoints.postman_collection), you only have to import them in the [Postman](https://www.postman.com/) application.
 
-Take in mind that most of the endpoints have auth restrictions, thus be sure to **specify the authorization bearer token in the request header.**
+## Tecnologias utilizadas
+- [XAMPP](https://www.apachefriends.org/index.html): Contiene Mysql. 
+- [Swagger](https://editor.swagger.io/) : Se usa para documentar los endpoints de las API.
+- [Postman](https://www.postman.com/) : Se usa para testear los Endpoints.
+- [Node.js](https://nodejs.org) : Funciona como servidor centralizado.
 
-## Used Technologies
-- [XAMPP](https://www.apachefriends.org/index.html): Provide MySQL server-side functionality. 
-- [Swagger](https://editor.swagger.io/) : Used for OPEN API documentation reading and designing of the API endpoints.
-- [Postman](https://www.postman.com/) : Endpoint testing.
-- [Node.js](https://nodejs.org) : Provide core server-side functionalities.
-
-## NPM Packages
-- [Express](http://expressjs.com) : Framework that provides an easy-way to handle request and managing routes.
-- [express-validator](https://express-validator.github.io/) : For validation and sanitization of request's body and query params.
-- [nodemon](https://www.npmjs.com/package/nodemon) : Used in dev instance for fast server reloading.
-- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) : Creation and validation of [JWT](https://jwt.io) authorization method.
-- [dotenv](https://www.npmjs.com/package/dotenv) : Used to protect JWT passphrase. 
-- [Sequelize](https://www.npmjs.com/package/sequelize) : ORM for MySQL connection and querying.
-- [mysql2](https://www.npmjs.com/package/mysql2) : MySQL client for nodejs. Integrated in Sequelize.
-- [moment](https://www.npmjs.com/package/moment) : For easily parsing and formatting dates.
+## Paquetes NPM
+- [Express](http://expressjs.com) : Framework que permite manejar peticiones y rutas de una forma agil.
+- [express-validator](https://express-validator.github.io/) : Para validación y limpieza de peticiones body y query params.
+- [nodemon](https://www.npmjs.com/package/nodemon) : Usado para carga rapida de servidor.
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) : Creacion y validación de token [JWT](https://jwt.io) como metodo de autenticación.
+- [dotenv](https://www.npmjs.com/package/dotenv) : Usado para proteger el token. 
+- [Sequelize](https://www.npmjs.com/package/sequelize) : ORM utilizado para conexión con Mysql.
+- [mysql2](https://www.npmjs.com/package/mysql2) : Cliente Mysql utilizado para nodejs, el cual se integra con sequilize.
+- [moment](https://www.npmjs.com/package/moment) : Se utiliza para parsear facilmente las fechas.
