@@ -1,7 +1,7 @@
 const path = require('path');
 const { sequelize } = require(path.join(__dirname, '..', 'index'));
 
-// Import models
+// Importando modelos relacionales
 const DishesList = require(path.join(__dirname, 'dishesList'));
 const Order = require(path.join(__dirname, 'orders'));
 const OrderDish = require(path.join(__dirname, 'orderDish'));
@@ -11,28 +11,28 @@ const SecurityType = require(path.join(__dirname, 'securityType'));
 const StatusType = require(path.join(__dirname, 'statusType'));
 const User = require(path.join(__dirname, 'users'));
 
-// Set relations among models
-// 1-N
+// Estableciendo relaciones 
+// 1-muchso
 SecurityType.hasMany(User);
 User.belongsTo(SecurityType);
 
-// 1-N
+// 1-muchos
 User.hasMany(Order);
 Order.belongsTo(User);
 
-// 1-N
+// 1-muchos
 PaymentType.hasMany(Order);
 Order.belongsTo(PaymentType);
 
-// N-M
+// Muchos a muchos
 StatusType.belongsToMany(Order, { through: OrderStatus });
 Order.belongsToMany(StatusType, { through: OrderStatus });
 
-// N-M
+// muchos a muchos
 DishesList.belongsToMany(Order, { through: OrderDish });
 Order.belongsToMany(DishesList, { through: OrderDish });
 
-// Sync relationship model
+// Sincronizando los modelos
 sequelize.sync()
     .then(resp => {
         console.log('Model was synced')

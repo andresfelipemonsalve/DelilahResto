@@ -1,5 +1,5 @@
 /*
-    This file holds all routes belonging to /users.
+    Esta ruta perteneces a la información de los  /users.
 */
 const path = require("path");
 const express = require("express");
@@ -8,14 +8,14 @@ const router = express.Router();
 const { checkErrorMessages, usersCtrl, authCtrl } = require(path.join(__dirname, "controller", "index"));
 
 
-// Returns all info of user
+// Retorna la informacion del usuario
 router.get("/",
     authCtrl.validateToken,
     authCtrl.adminAccessOnly,
     usersCtrl.getAllUsers
 );
 
-// Create a new user
+// Crea un nuevo usuario
 router.post("/",
     [
         usersCtrl.checkBodyNewUser,
@@ -24,7 +24,7 @@ router.post("/",
     usersCtrl.createNewUser
 );
 
-// Returns user's info
+// Retorna informacion de usuario
 router.get("/:id",
     authCtrl.validateToken,
     [
@@ -35,7 +35,7 @@ router.get("/:id",
     usersCtrl.getOneUser
 );
 
-// Update user's info
+// Actualiza usuario
 router.put("/:id",
     authCtrl.validateToken,
     [
@@ -47,7 +47,7 @@ router.put("/:id",
     usersCtrl.updateUser
 );
 
-// Delete user
+// Elimina usuario
 router.delete("/:id",
     authCtrl.validateToken,
     authCtrl.adminAccessOnly,
@@ -58,7 +58,7 @@ router.delete("/:id",
     usersCtrl.deleteUser
 );
 
-// Get user's favourite dishes
+// Obtiene el plato favorito
 router.get("/:id/dishes",
     authCtrl.validateToken,
     [

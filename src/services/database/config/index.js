@@ -1,4 +1,4 @@
-// DB confguration settings...
+// Base de datos configuracion local
 module.exports =
 {
     DATABASE: 'delilah-resto',
@@ -6,6 +6,6 @@ module.exports =
     HOST: 'localhost',
     PASSWORD: null,
     PORT: 3306,
-    TIMEZONE: '-03:00', // Local timezone - For writing to db
+    TIMEZONE: '-05:00', // Hora local para la base de datos
     USERNAME: 'root'
 }

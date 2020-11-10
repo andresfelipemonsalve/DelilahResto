@@ -20,10 +20,10 @@ const checkQueryTimeFilters = [
                 options: (at, { req }) => {
                     const { before, after } = req.query;
                     if (!at && !before && !after) {
-                        // If nothing was entered, then query today's orders.
+                        // Si no ingresa ninguna orden hoy
                         return moment().toDate(); // Today's day
                     }
-                    return at; // If nothing is done, return it as original.
+                    return at; //si no hay nada que actualizar, retorna el original.
                 }
             }
         }
@@ -102,7 +102,7 @@ const checkBodyNewOrder = checkSchema({
     dishes: {
         in: 'body',
         optional: false,
-        customSanitizer: { // Reduce dish list -> Agregate quantities for same dishies. This will prevent to have multiples queries for dame dish's id
+        customSanitizer: { //reduce la lista de platos y agrega nuevas cantidades.
             options: (dishes) => {
                 const AggregatedDishes = dishes.reduce((acc, cur) => {
                     if (!acc) return [cur];
@@ -119,7 +119,7 @@ const checkBodyNewOrder = checkSchema({
                 return AggregatedDishes;
             }
         },
-        custom: {       // Check if requested dishes are all available.
+        custom: {       // chequea si las peticiones están disponibles
             options: async (dishes) => {
                 const orderedDishesIdArr = dishes.map(orderedDish => orderedDish.id);
 
@@ -132,7 +132,7 @@ const checkBodyNewOrder = checkSchema({
                 });
                 const availableDishesIdsArr = availableDishesIdsQuery.map(model => model.id);
 
-                // Any of the ordered dishes is unavailable?
+                // Hay alguna orden de platos disponibles?
                 let invalidDishId = undefined;
                 const anyOrderedDishesAreAvailable = orderedDishesIdArr.some(id => {
                     invalidDishId = id;
@@ -174,7 +174,7 @@ const checkOwnUserData = checkSchema({
                 // If it's admin go on.
                 if (req.locals.user.is_admin) return;
 
-                // Check whether order belongs to requester.
+                // Chequea si la orden pertenece a aolgun pedido.
                 const orderId = id;
                 const userID = req.locals.user.id;
 
@@ -214,13 +214,13 @@ const checkQueryState = checkSchema({
 const getOrders = async (req, res) => {
     const { at, before, after } = req.query;
 
-    // Set time filters for query...
+    // Establece filtros de la fecha ...
     const opAtBeginning = at ? moment(at).startOf('day') : null;
     const opAtEnding = at ? moment(at).endOf('day') : null;
     const opBefore = before || (after ? await Order.max('createdAt') : null);
     const opAfter = after || (before ? 0 : null);
 
-    // Eager Loading...
+    // Conmensal...
     const order = await Order.findAll({
         where: {  // WHERE (createdAt>=opAtBeginning AND createdAt<=opAtEnding) OR (createdAt>=opAfter AND createdAt<=opBefore)
             createdAt: {
@@ -274,7 +274,7 @@ const getOrders = async (req, res) => {
         ]
     });
 
-    // Refactoring ... The reason of fhis refactoring is to show information as exposed in YAML.
+    // Refactoring ... La razon por la que refactoriza está expuesta en el YAML.
     const ordersJSON = order.map(sequelizeObj => {
         const result = sequelizeObj.toJSON();
 
@@ -311,19 +311,19 @@ const getOrders = async (req, res) => {
 const createNewOrder = async (req, res) => {
     const { dishes, address, payment_type } = req.body;
 
-    // ID who is trying to create a new order
+    // ID del usuario que esta tratando de crear la nueva orden
     const requestedUserId = res.locals.user.id;
 
-    const dishesToDeliver = []; // Later we will pass it to order.addDishesLists(arg)
-    const individualDescription = []; // Later we will add all short descript to order
-    let payment_total = 0;  // Total payment for the order
+    const dishesToDeliver = []; // Luego intentara pasar eso order.addDishesLists(arg)
+    const individualDescription = []; // Despues describira la orden
+    let payment_total = 0;  // Total del pago por la orden
 
-    // For each ordered dish...
+    // Para cada plato ordenado...
     for (let i = 0; i < dishes.length; i++) {
         const orderedDish = dishes[i];
         const dish = await DishesList.findByPk(orderedDish.id);
 
-        // Prepare data for the join table OrderDish
+        // Prepara la data para unirlo a la tabla de pedidos
         const quantity = orderedDish.quantity;
         const unitary_price = dish.get('price');
         const sub_total = unitary_price * quantity;
@@ -334,17 +334,17 @@ const createNewOrder = async (req, res) => {
         };
         dishesToDeliver.push(dish);
 
-        // Total order's cost
+        // Total de la orden cuesta
         payment_total += sub_total;
 
-        // Short ordered dish description 1xHam
+        // Descripción corta del plato
         const name_short = dish.get('name_short');
         individualDescription.push(`${quantity}x${name_short}`);
     }
-    const description = individualDescription.join(' '); // Format the string
+    const description = individualDescription.join(' '); // formatea la cadena
 
 
-    // Count how many order where created today and add one
+    // Cuenta cuantas ordenes han sido creadas hoy y le suma una
     const today = moment().startOf('day');
     const alreadyOrderedToday = await Order.count({
         where:
@@ -352,7 +352,7 @@ const createNewOrder = async (req, res) => {
     });
     const order_number = 1 + alreadyOrderedToday;
 
-    // Create the order itself
+    // Crea la orden
     let order = await Order.create({
         address,
         description,
@@ -363,10 +363,10 @@ const createNewOrder = async (req, res) => {
     });
 
 
-    // Populate all ordered dishes into OrderDish table.
+    // Ingresa todos los platos ordenados a la tabla
     await order.addDishesLists(dishesToDeliver);
 
-    // Asociate the order with 'new' status stype
+    // Asocia la orden nueva con el estado de 'new'
     const newStatusType = await StatusType.findOne({ where: { type: 'New' } }); // Start with the New state.
     await order.addStatusType(newStatusType);
 
@@ -411,7 +411,7 @@ const getOneOrder = async id => {
         ]
     });
 
-    // Refactoring ... The reason of fhis refactoring is to show information as exposed in YAML.
+    // Refactoring ... La información se en cuentra en el YAML.
     const orderJSON = order.toJSON();
 
     // Refactoring Order Status...

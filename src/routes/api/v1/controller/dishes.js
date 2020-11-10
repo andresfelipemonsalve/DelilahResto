@@ -9,7 +9,7 @@ const checkBodyNewDish = checkSchema({
         optional: false,
         isAscii: true,
         isLength: {
-            errorMessage: 'Dish name should have between 4 and 256 Ascii characters',
+            errorMessage: 'El nombre de los platos deberia estar entre 4 and 256 caracteres',
             options: {
                 min: 4,
                 max: 256
@@ -22,7 +22,7 @@ const checkBodyNewDish = checkSchema({
         optional: false,
         isAscii: true,
         isLength: {
-            errorMessage: 'Dish short name should have between 1 and 32 Ascii characters',
+            errorMessage: 'Nombre de plato muy cordo deberia tener 1 and 32 caracteres',
             options: {
                 min: 1,
                 max: 32
@@ -35,7 +35,7 @@ const checkBodyNewDish = checkSchema({
         optional: true,
         isString: true,
         isLength: {
-            errorMessage: 'Dish description can have at most 512 characters!',
+            errorMessage: 'La descripcion del plato deberia tener al menos 512 caracteres!',
             options: {
                 max: 512
             }
@@ -55,7 +55,7 @@ const checkBodyNewDish = checkSchema({
                 gt: 0,
                 locale: ['en-US']
             },
-            errorMessage: 'Value should be positive and use en-US notation. Use dot (.) to separete decimals.'
+            errorMessage: 'Se deberia usuar notacion en-US. Use punto para separar decimales.'
         },
         toFloat: true
     },
@@ -73,7 +73,7 @@ const checkBodyUpdateDish = checkSchema({
         optional: true,
         isAscii: true,
         isLength: {
-            errorMessage: 'Dish name should have between 4 and 256 Ascii characters',
+            errorMessage: 'El nombre del plato deberia estar entre 4 and 256 caracteres',
             options: {
                 min: 4,
                 max: 256
@@ -188,7 +188,7 @@ const updateDish = async (req, res) => {
 
     const originalDish = DishesList.findByPk(id);
 
-    // By default use original data, sequelize will update only modief data
+    // Por defecto solo se usa la informacion original, sequilize deberia actualizar los valores
     const {
         description = originalDish.description,
         img_path = originalDish.img_path,

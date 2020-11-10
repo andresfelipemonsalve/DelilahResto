@@ -1,27 +1,27 @@
 /*
-    MASTER ROUTES
+    Maestro de rutas
 */
 const path = require("path");
 const express = require("express");
 const router = express.Router();
 
-/* ROUTES */
+/* Rutas */
 const url_routes_v1 = "/api/v1";
 const path_routes_v1 = path.join(__dirname, "api", "v1");
 
-// Dishes routes
+// Rutas de platos
 router.use(url_routes_v1 + "/dishes",
     require(path.join(path_routes_v1, "dishes.js")));
 
-// Log in routes
+// Rutas de login
 router.use(url_routes_v1 + "/login",
     require(path.join(path_routes_v1, "login.js")));
 
-// Orders routes
+// Rutas de ordenes
 router.use(url_routes_v1 + "/orders",
     require(path.join(path_routes_v1, "orders.js")));
 
-// Users routes
+// Rutas de usuarios
 router.use(url_routes_v1 + "/users",
     require(path.join(path_routes_v1, "users.js")));
 

@@ -6,7 +6,7 @@ const {
 } = require(path.join(__dirname, '..', '..', '..', '..', 'services', 'database', 'model', 'index'));
 const { checkSchema } = require('express-validator');
 
-// JWT Authentication
+// JWT Autenticacion
 const jwt = require("jsonwebtoken");
 
 const checkQueryParams = checkSchema({
@@ -46,23 +46,23 @@ const getToken = async (req, res) => {
 
     if (!id) return res.sendStatus(401);
 
-    // Generate token
-    const token = jwt.sign({ id }, process.env.JWT_PASSPHRASE);       // PASSPHRASE is declared in the file .env
+    // Genera token
+    const token = jwt.sign({ id }, process.env.JWT_PASSPHRASE);       // la contraseña se declara en el archivo .env
 
     return res.status(200).json({ token });
 }
 
 const validateToken = async (req, res, next) => {
     try {
-        // Check whether Bearer authentication token exits in header
+        // chequea el token con el metodo bearer
         const [bearer, token] = req.headers.authorization.split(" ");
         if (bearer !== "Bearer") return res.status(401).send("Expected Bearer");
 
-        // Check whether token is valid
-        const { id } = jwt.verify(token, process.env.JWT_PASSPHRASE);     // PASSPHRASE is declared in the file .env
+        // chequea si el token es valido
+        const { id } = jwt.verify(token, process.env.JWT_PASSPHRASE);     // La contraseña se encuentra en el archivo .env
         if (!id) return res.status(401).send("id missing in token");
 
-        // Check if id is admin
+        // Chequea si el id es de un administrador
         const user = await User.findOne({
             where: {
                 id
@@ -71,11 +71,11 @@ const validateToken = async (req, res, next) => {
         });
         const is_admin = user.SecurityType.type === 'admin';
 
-        // Store results to locals http://expressjs.com/en/api.html#res.locals
+        // Almacena los resultados en el locals http://expressjs.com/en/api.html#res.locals
         res.locals.user = { id, is_admin };
-        req.locals = res.locals; // Used in some validators.
+        req.locals = res.locals; // Se usa en algunas validaciones
 
-        // Alle gut, los gehts.
+        // Todo esta bien!
         return next();
     } catch (e) {
         console.log(e);

@@ -9,18 +9,18 @@ const sequelize = new Sequelize({
     host: conn.HOST,
     password: conn.PASSWORD,
     port: conn.PORT,
-    timezone: conn.TIMEZONE, // Local timezone - For writing to db
+    timezone: conn.TIMEZONE, // Hora local para la base de datos
     username: conn.USERNAME,
     logging: false,
-    // For reading  dates correctly from DB
-    useUTC: false, //for reading from database
+    // para leer fechas correctamente de la base de datos
+    useUTC: false, //para leer de la base de datos
     dialectOptions: {
         dateStrings: true,
         typeCast: true,
     },
 });
 
-// Ensure Sync between DB and model
+// Asegura la sincronizacion entre base de datos y modelo
 require('./model/index');
 
 module.exports = { sequelize };

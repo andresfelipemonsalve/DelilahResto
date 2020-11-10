@@ -35,7 +35,7 @@ router.get("/:id",
     dishesCtrl.getDish
 );
 
-// Modify the plate
+// Modifica el plato
 router.put("/:id",
     authCtrl.validateToken,
     authCtrl.adminAccessOnly,
@@ -47,7 +47,7 @@ router.put("/:id",
     dishesCtrl.updateDish
 );
 
-// Delete plate
+// Elimina el plato
 router.delete("/:id",
     authCtrl.validateToken,
     authCtrl.adminAccessOnly,

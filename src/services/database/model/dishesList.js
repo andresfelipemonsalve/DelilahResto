@@ -32,7 +32,7 @@ const DishesList = sequelize.define(
         }
     },
     {
-        // tableName: 'DishesLists',
+        // Nombretabla: 'DishesLists',
         timestamps: false
     }
 );

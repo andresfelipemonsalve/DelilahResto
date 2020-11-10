@@ -1,5 +1,5 @@
 /*
-Simple logger to monitor every request with its content 
+Registra cada peticion con este codigo
 */
 const logger = (req, res, next) => {
     console.log("\n"+`${new Date().toLocaleString()} - ${req.ip} ${req.method} ${req.originalUrl}`);

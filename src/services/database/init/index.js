@@ -11,7 +11,7 @@ const {
 module.exports = { populateBasicInfo };
 
 async function populateBasicInfo() {
-    // Populate some dishes.
+    // platos populares.
     await DishesList.bulkCreate([
         {
             name: 'Chiken Hamburger',
@@ -31,7 +31,7 @@ async function populateBasicInfo() {
         }
     ]);
 
-    // Populate basic security types
+    // Seguridad perfil
     await SecurityType.bulkCreate([
         {
             type: 'admin',
@@ -42,7 +42,7 @@ async function populateBasicInfo() {
         }
     ]);
 
-    // Populate basic payment types
+    // Tipo de pago
     await PaymentType.bulkCreate([
         {
             type: 'cash',
@@ -56,47 +56,47 @@ async function populateBasicInfo() {
     ]);
 
 
-    // Populate different status that order have
+    // Estado de las ordenes
     await StatusType.bulkCreate([
         {
             type: 'New',
-            description: 'New order'
+            description: 'Nueva orden'
         }, {
             type: 'Confirmed',
-            description: 'Confirmed order'
+            description: 'Orden Confirmada'
         }, {
             type: 'In Progress',
-            description: 'Cooking order'
+            description: 'Orden en progreso'
         }, {
             type: 'Sent',
-            description: 'Order is being delivered'
+            description: 'Orden enviada'
         }, {
             type: 'Received',
-            description: 'Order has been received'
+            description: 'Orden recibida'
         }, {
             type: 'Cancelled',
-            description: 'Order has been cancelled'
+            description: 'Orden cancelada'
         }
     ]);
 
-    // Create two basic users
+    // Creando usuarios básicos
     await User.bulkCreate([
         {
-            full_name: 'Juan Wagner',
+            full_name: 'Andres Monsalve',
             username: 'admin',
-            email: 'juanswagner@asdads.com',
+            email: 'andres.felipe.monsalve@hotmail.com',
             password: 'admin',
             phone: '+5493455559542',
-            address: 'Ocampo 918',
+            address: 'Siempre Viva',
             SecurityTypeId: (await SecurityType.findOne({ where: { type: 'admin' } })).get('id')
         },
         {
-            full_name: 'Agostina De Las Nieves',
+            full_name: 'Andrea Vasquez',
             username: 'adln',
-            email: 'lucernita@asdads.com',
+            email: 'avasquez@gmail.com',
             password: 'anotherpassword',
             phone: '+5493455559333',
-            address: 'Riobamba 918',
+            address: 'Springfield',
             SecurityTypeId: (await SecurityType.findOne({ where: { type: 'user' } })).get('id')
         }
     ]);

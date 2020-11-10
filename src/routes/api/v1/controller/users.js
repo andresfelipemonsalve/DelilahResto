@@ -155,12 +155,12 @@ const checkBodyUpdateUser = checkSchema({
         toInt: true,
         custom: {
             options: async (securityTypeId, { req }) => {
-                // Only an admin can change security type
-                if (!req.locals.user.is_admin) return Promise.reject('Only admins can change security types.');
+                // Solo el administrador puede cambiar la seguridad
+                if (!req.locals.user.is_admin) return Promise.reject('Solo administradores pueden cambiar la seguridad.');
 
                 const validInfo = await SecurityType.findByPk(securityTypeId);
                 if (validInfo === null)
-                    return Promise.reject('Security type is invalid type is invalid.');
+                    return Promise.reject('Tipo de seguridad es invalido.');
             }
         }
     }
@@ -190,7 +190,7 @@ const checkOwnUserData = checkSchema({
                 // If it's admin go on.
                 if (req.locals.user.is_admin) return;
 
-                // Check wheter user is requesting his own data
+                // Chequea si el usuario está solicitando su propia informacion
                 const userID = req.locals.user.id;
                 if (userID !== id) return Promise.reject("User can only see his own data.");
             }
@@ -245,7 +245,7 @@ const updateUser = async (req, res) => {
     const { id } = req.params;
 
     const user = User.findByPk(id);
-    // By default use original data, sequelize will update only modief data
+    // Por defecto usa la data original, sequilize deberia actualizar la data modificada
     const {
         address = user.address,
         email = user.email,

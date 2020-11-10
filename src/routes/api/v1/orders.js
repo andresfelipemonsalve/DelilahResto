@@ -1,5 +1,5 @@
 /*
-    This file holds all routes belonging to /orders.
+    Este archivo contiene las rutas de las ordenes /orders.
 */
 const path = require("path");
 const express = require("express");
@@ -11,15 +11,15 @@ const { checkErrorMessages, ordersCtrl, authCtrl } = require(path.join(__dirname
 /* PATHS */
 
 /*
-List all orders
-According to documentation if no param is specified, i will return all orders for the current date.
-AT query param: Filter orders for an specific date.
+Lista todas las ordenes.
+De acuerdo a la documentacion establecida en la fecha, 
+AT query param: Filtra las ordenes por fecha especifica
             UNION
-BEFORE query param: Filter orders before or equal to certain date.
+BEFORE query param: Filtra las ordenes antes de igualar cierta fecha.
             AND
-AFTER query param: Filter orders after or equal to certain date.
+AFTER query param: Filtra las oredenes despues de igualar cierta fecha.
 
-Date must be ISO YYYY-MM-DD
+La fecha deberia cumplir el estandar ISO YYYY-MM-DD
 */
 router.get("/",
     authCtrl.validateToken,

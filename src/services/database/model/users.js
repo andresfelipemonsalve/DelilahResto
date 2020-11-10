@@ -1,4 +1,4 @@
-// For hashing passwords
+// Para contraseñas cifradas
 const crypto = require('crypto');
 const path = require('path');
 const { sequelize } = require(path.join(__dirname, '..', 'index.js'));
@@ -23,7 +23,7 @@ const User = sequelize.define(
             allowNull: false,
             type: DataTypes.STRING,
             set(password) {
-                // I don't want to store plain passwords
+                // para no almacenar clave en texto plano
                 this.setDataValue('password', crypto.createHash('sha512').update(password).digest('hex'));
             }
         },

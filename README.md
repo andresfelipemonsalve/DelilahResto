@@ -29,14 +29,14 @@ mv .env_sample .env
 sed -i 's/CAMBIE_SU_CLAVE/ejemplo_clave/g' .env
 ```
 reemplace `ejemplo_clave` por el valor que usted desee, esto será usado para encriptar los tokens!
-    
+
 ### 2. Configure la base de datos
 1. Instale [XAMPP](https://www.apachefriends.org/index.html) el cual incluye servidor apache y mysql.
 1. Abra XAMPP e inicialice `Apache` y `MySQL`. asegurese que Mysql corre en el puerto `3306`.
-1.  `MySQL` asegurece que tenga ingreso de administrador con perfil `root` contraseña por defecto o creela
-1. Tiene dos opciones para configurar la base de datos:
+1.  En `MySQL` asegurece que tenga ingreso de administrador con perfil `root` contraseña por defecto o creela
+1. Se tiene dos opciones para cargar la base de datos:
     * *OPCION A)* Cree una base de datos de ejemplo `delilah-resto` y asegure la información [here](./src/services/database/config/index.js) esta correcta. Luego ejecute `npm run populateData`.
-    * *OPCION B)* Importe [this file](./src/services/database/delilah-resto-init-config.sql) este archivo contiene todos los scripts para generar las tablas, y la relaciones entre ellas con información básica.
+    * *OPCION B)* Importe [this file](./src/services/database/init-config.sql) este archivo contiene todos los scripts para generar las tablas, y la relaciones entre ellas con información básica.
 
 Hasta aca se ha configurado la base de datos y se ha instalado nodejs.
 
@@ -51,9 +51,9 @@ npm run start
 Esto es todo lo que necesita.
 
 ## Descripcion de los Endpoints
-Los endpoints se detallan en este archivo [this YALM file](./design/API/delilah-resto-API-spec.yml) y están diseñados con la siguiente especificación [OPEN API specifications](https://swagger.io/specification/#:~:text=Introduction,or%20through%20network%20traffic%20inspection.) se sugiere consultar esta guia para más información [this handbook](https://pages.apigee.com/rs/apigee/images/api-design-ebook-2012-03.pdf).
+Los endpoints se detallan en este archivo [this YALM file](./design/API/API-spec.yml) y están diseñados con la siguiente especificación [OPEN API specifications](https://swagger.io/specification/#:~:text=Introduction,or%20through%20network%20traffic%20inspection.) se sugiere consultar esta guia para más información [this handbook](https://pages.apigee.com/rs/apigee/images/api-design-ebook-2012-03.pdf).
 
-Se detalla la documentación acá [documentation file](./design/API/delilah-rsto-API-Documentation.html) tambien se detalla en este archivo [YALM file](./design/API/delilah-resto-API-spec.yml) el cual fue editado en  [Swagger Editor](https://editor.swagger.io/#).
+Se detalla en este archivo [YALM file](./design/API/API-spec.yml) el cual fue editado en  [Swagger Editor](https://editor.swagger.io/#).
 
 
 A continuación un breve resumen de los endpoints.

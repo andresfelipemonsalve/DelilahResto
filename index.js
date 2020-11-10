@@ -1,16 +1,16 @@
 /*
-    MAIN ENTRY PONIT
+    INICIO
 */
-require('dotenv').config();                 // Active .env  -> this file holds JWT passphrase
+require('dotenv').config();                 // Se activa la frase
 
-// Build-in node.js libraries
+// Construyen librerias nodejs
 const path = require("path");
 
-/* Server config */
-// Server initialization
+/* Configuracion servidor*/
+// inicializando...
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 3000;      // In case PORT var is missing in env, 3000 will be used in replace.
+const PORT = process.env.PORT || 3000;      // en caso que el puerto se pierda lo reemplaza el 3000.
 
 /* Middlewares */
 // Middleware - Body parser
@@ -21,10 +21,10 @@ app.use(require(path.join(__dirname, "src", "middlewares", "logger.js")));
 /* Routes */
 // Master route
 app.use(require(path.join(__dirname, "src", "routes", "routes.js")));
-// Any other requested path would be responsed by 404
+// cuaquier otra solicitud se responderá con estatus 404
 app.all("*", (req, res) => res.sendStatus(404));
 
-// Generic error
+// Error generico
 app.use((err, req, res, next) => {
     if (!err) return next();
     console.log("An error has occurred", err);
@@ -32,18 +32,18 @@ app.use((err, req, res, next) => {
     throw err;
 });
 
-// DB connnection
+// conexiones a la base de datos
 const { sequelize } = require(path.join(__dirname, 'src', 'services', 'database', 'index'));
-// Check whether server could connect
+// Chequea si puede conectar con el servidor
 sequelize.authenticate()
-    // Success on connection
+    // conexión exitosa
     .then(() => {
-        // Start server
+        // inicializa el servidor
         app.listen(PORT, () => {
             console.log(`${new Date().toLocaleString()} -- Server is up and listening to port ${PORT}`)
         });
     })
-    // Failure on connection
+    // error fallo servidor
     .catch(error => {
         console.error("Error authenticating DB", error);
     });
