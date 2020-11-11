@@ -23,17 +23,17 @@ git clone https://github.com/andresfelipemonsalve/DelilahResto
 cd DelilahResto
 npm install
 ```
-3. Renombre el archivo ".env_sample" por ".env" y reemplace el valor CAMBIE_SU_CLAVE con su propia contraseña.
+3. En el archivo ".env" se encuentran las variable de entorno con relacion a la clave la contraseña por defecto es 'abc123' la cual se puede modificar por alguna de su preferencia.
 ```bash
 mv .env_sample .env
 sed -i 's/CAMBIE_SU_CLAVE/ejemplo_clave/g' .env
 ```
-reemplace `ejemplo_clave` por el valor que usted desee, esto será usado para encriptar los tokens!
+En la linea anterior reemplace `ejemplo_clave` por el valor que usted desee, esto será usado para encriptar los tokens!
 
 ### 2. Configure la base de datos
 1. Instale [XAMPP](https://www.apachefriends.org/index.html) el cual incluye servidor apache y mysql.
 1. Abra XAMPP e inicialice `Apache` y `MySQL`. asegurese que Mysql corre en el puerto `3306`.
-1.  En `MySQL` asegurece que tenga ingreso de administrador con perfil `root` contraseña por defecto o creela
+1.  En `MySQL` asegurece que tenga ingreso de administrador con perfil `root` contraseña se recomienda cambiarla.
 1. Se tiene dos opciones para cargar la base de datos:
     * *OPCION A)* Cree una base de datos de ejemplo `delilah-resto` y asegure la información [here](./src/services/database/config/index.js) esta correcta. Luego ejecute `npm run populateData`.
     * *OPCION B)* Importe [this file](./src/services/database/init-config.sql) este archivo contiene todos los scripts para generar las tablas, y la relaciones entre ellas con información básica.
