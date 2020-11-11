@@ -25,7 +25,6 @@ npm install
 ```
 3. En el archivo ".env" se encuentran las variable de entorno con relacion a la clave la contraseña por defecto es 'abc123' la cual se puede modificar por alguna de su preferencia.
 ```bash
-mv .env_sample .env
 sed -i 's/CAMBIE_SU_CLAVE/ejemplo_clave/g' .env
 ```
 En la linea anterior reemplace `ejemplo_clave` por el valor que usted desee, esto será usado para encriptar los tokens!
