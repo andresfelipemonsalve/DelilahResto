@@ -32,7 +32,7 @@ En la linea anterior reemplace `ejemplo_clave` por el valor que usted desee, est
 ### 2. Configure la base de datos
 1. Instale [XAMPP](https://www.apachefriends.org/index.html) el cual incluye servidor apache y mysql.
 1. Abra XAMPP e inicialice `Apache` y `MySQL`. asegurese que Mysql corre en el puerto `3306`.
-1.  En `MySQL` asegurece que tenga ingreso de administrador con perfil `root` contraseña se recomienda cambiarla.
+1.  En `MySQL` asegurece que tenga ingreso de administrador con perfil `root` contraseña por defecto, se recomienda cambiarla.
 1. Se tiene dos opciones para cargar la base de datos:
     * *OPCION A)* Cree una base de datos de ejemplo `delilah-resto` y asegure la información [here](./src/services/database/config/index.js) esta correcta. Luego ejecute `npm run populateData`.
     * *OPCION B)* Importe [this file](./src/services/database/init-config.sql) este archivo contiene todos los scripts para generar las tablas, y la relaciones entre ellas con información básica.
@@ -50,7 +50,7 @@ npm run start
 Esto es todo lo que necesita.
 
 ## Descripcion de los Endpoints
-Los endpoints se detallan en este archivo [this YALM file](./design/API/API-spec.yml) y están diseñados con la siguiente especificación [OPEN API specifications](https://swagger.io/specification/#:~:text=Introduction,or%20through%20network%20traffic%20inspection.) se sugiere consultar esta guia para más información [this handbook](https://pages.apigee.com/rs/apigee/images/api-design-ebook-2012-03.pdf).
+Los endpoints se detallan en este archivo [this YALM file](./design/API/spec.yml) y están diseñados con la siguiente especificación [OPEN API specifications](https://swagger.io/specification/#:~:text=Introduction,or%20through%20network%20traffic%20inspection.) se sugiere consultar esta guia para más información [this handbook](https://pages.apigee.com/rs/apigee/images/api-design-ebook-2012-03.pdf).
 
 Se detalla en este archivo [YALM file](./design/API/API-spec.yml) el cual fue editado en  [Swagger Editor](https://editor.swagger.io/#).
 

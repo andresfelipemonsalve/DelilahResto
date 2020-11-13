@@ -1,7 +1,7 @@
 {
-  "name": "delilah-resto",
+  "name": "delilahresto",
   "version": "1.0.0",
-  "description": "Third and last project of Acamica",
+  "description": "Tercer proyecto de Acamica",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wgnr/delilah-resto.git"
+    "url": "git https://github.com/andresfelipemonsalve/delilahresto.git"
   },
   "keywords": [
     "nodejs",
@@ -24,12 +24,12 @@
     "Development",
     "JavaScript"
   ],
-  "author": "Juan Wagner",
+  "author": "Andres Felipe Monsalve Alzate",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wgnr/delilah-resto/issues"
+    "url": "https://github.com/andresfelipemonsalve/delilahresto.git"
   },
-  "homepage": "https://github.com/wgnr/delilah-resto#readme",
+  "homepage": "https://github.com/andresfelipemonsalve/delilahresto.git",
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
