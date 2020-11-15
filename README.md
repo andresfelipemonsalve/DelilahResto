@@ -52,7 +52,7 @@ Esto es todo lo que necesita.
 ## Descripcion de los Endpoints
 Los endpoints se detallan en este archivo [this YALM file](./design/API/spec.yml) y están diseñados con la siguiente especificación [OPEN API specifications](https://swagger.io/specification/#:~:text=Introduction,or%20through%20network%20traffic%20inspection.) se sugiere consultar esta guia para más información [this handbook](https://pages.apigee.com/rs/apigee/images/api-design-ebook-2012-03.pdf).
 
-Se detalla en este archivo [YALM file](./design/API/API-spec.yml) el cual fue editado en  [Swagger Editor](https://editor.swagger.io/#).
+Se detalla en este archivo [YALM file](./design/API/spec.yml) el cual fue editado en  [Swagger Editor](https://editor.swagger.io/#).
 
 
 A continuación un breve resumen de los endpoints.
